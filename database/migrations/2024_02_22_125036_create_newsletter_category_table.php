@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mails', function (Blueprint $table) {
+        Schema::create('newsletter_category', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
+            $table->foreignId('newsletter_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mails');
+        Schema::dropIfExists('newsletter_category');
     }
 };
