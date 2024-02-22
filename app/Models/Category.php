@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
+
+    public function newsletters()
+    {
+        return $this->belongsToMany(Newsletter::class, 'newsletter_category');
+    }
 }
