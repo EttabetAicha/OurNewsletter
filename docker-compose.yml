@@ -1,3 +1,5 @@
+version: '3'
+
 services:
     laravel.test:
         build:
@@ -21,8 +23,7 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
-        depends_on:
-            - mysql
+
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -39,17 +40,27 @@ services:
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
-        healthcheck:
-            test:
-                - CMD
-                - mysqladmin
-                - ping
-                - '-p${DB_PASSWORD}'
-            retries: 3
-            timeout: 5s
+
+    db:
+        image: mariadb:10.3
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: notSecureChangeMe
+
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: 'db'
+            PMA_USER: 'root'
+            PMA_PASSWORD: 'notSecureChangeMe'
+
 networks:
     sail:
         driver: bridge
+
 volumes:
     sail-mysql:
         driver: local
