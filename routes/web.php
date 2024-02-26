@@ -20,7 +20,7 @@ use App\Http\Controllers\NewsletterController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::view('/login', 'auth.form');
 Route::view('/', 'auth.form');
@@ -36,3 +36,7 @@ Route::view('/dashboard', 'dashboard');
 Route::resource('category', CategoryController::class)->only([
     'index', 'store', 'update', 'destroy'
 ]);
+Route::resource('newsletter', NewsletterController::class)->only([
+    'index', 'store', 'update', 'destroy'
+]);
+

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modernize Free</title>
+    <title>Our News letter</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <!-- Option 1: Include in HTML -->
@@ -76,12 +76,17 @@
                             <span class="hide-menu">AUTH</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{url('/lougout')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <span>
                                     <i class="ti ti-login"></i>
                                 </span>
                                 <span class="hide-menu">Logout</span>
                             </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
                         </li>
                         {{-- <li class="sidebar-item">
               <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">

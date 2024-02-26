@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Newsletter extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content', 'user_id'];
+    protected $fillable = ['title','images', 'content', 'user_id'];
 
     public function user()
     {
