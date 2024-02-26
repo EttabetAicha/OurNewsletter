@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\NewsletterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +19,20 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::post('/login', [AuthController::class, 'login']);
-
 Route::post('/register', [AuthController::class, 'register']);
-
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::view("/login","auth.form");
+Route::view('/login', 'auth.form');
+Route::view('/', 'auth.form');
+Route::view('/dashboard', 'dashboard');
 
-Route::view("/","auth.form");
-Route::view("/dashboard","dashboadrd");
+// Route::resources([
+//     'category' => CategoryController::class,
+//     'mails' => MailController::class,
+//     'newsletter'=> NewsletterController::class,
+// ]);
 
-Route::get('/category', function () {
-    return view('category');
-});
 
+Route::resource('category', CategoryController::class)->only([
+    'index', 'store', 'update', 'destroy'
+]);
