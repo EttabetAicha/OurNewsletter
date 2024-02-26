@@ -13,7 +13,6 @@ use App\Http\Controllers\AuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::view('/login','auth.form');
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -23,7 +22,8 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::view("/login","auth.form");
 
-Route::view("/","dashboard");
+Route::view("/","auth.form");
+Route::view("/dashboard","dashboadrd");
 
 Route::get('/category', function () {
     return view('category');
