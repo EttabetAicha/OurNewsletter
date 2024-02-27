@@ -21,10 +21,16 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $newsletter->title }}</h5>
                             <p class="card-text">{!! $newsletter->content !!}</p>
+                            <p><b>Categories:</b>
+                                @foreach($newsletter->categories as $category)
+                                    ,{{ $category->name }}
+                                @endforeach
+                            </p>
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#editNewsletterModal{{ $newsletter->id }}">Edit</button>
                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#confirmDeleteModal{{ $newsletter->id }}">Delete</button>
+
                             <!-- Delete Confirmation Modal -->
                             <div class="modal fade" id="confirmDeleteModal{{ $newsletter->id }}" tabindex="-1"
                                 role="dialog" aria-labelledby="confirmDeleteModalLabel{{ $newsletter->id }}"
@@ -85,6 +91,7 @@
                                                 <label for="content">Content</label>
                                                 <textarea class="form-control" id="editor" name="content" rows="6">{{ $newsletter->content }}</textarea>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="user_id">User</label>
                                                 <select class="form-control" id="user_id" name="user_id">
@@ -96,6 +103,17 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="categories">Categories</label>
+                                                <select class="form-control" id="categories" name="categories[]" multiple>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}" {{ in_array($category->id, $newsletter->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                            {{ $category->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -145,6 +163,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="categories">Categories</label>
+                            <select class="form-control" id="categories" name="categories[]" multiple>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
