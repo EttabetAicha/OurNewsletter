@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome to Adidas</title>
+    <title>Welcome to newsletter</title>
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -21,8 +21,17 @@
 			</div>
 			<span>or use your email for registration</span>
 			<input type="text" name="name" placeholder="Name" required />
+            @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 			<input type="email" name="email" placeholder="Email" required />
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 			<input type="password" name="password" placeholder="Password" required />
+            @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 			<button type="submit">Sign Up</button>
 		</form>
 	</div>
@@ -37,7 +46,13 @@
 			</div>
 			<span>or use your account</span>
 			<input type="email" name="email" placeholder="Email" required />
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 			<input type="password" name="password" placeholder="Password" required />
+            @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 			<a href="{{url('/password/change')}}">Forgot your password?</a>
 			<button type="submit">Sign In</button>
 		</form>

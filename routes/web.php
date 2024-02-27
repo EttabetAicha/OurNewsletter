@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\NewsletterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +17,26 @@ use App\Http\Controllers\CategoryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::view('/login','auth.form');
 
 Route::post('/login', [AuthController::class, 'login']);
-
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::view('/login', 'auth.form');
+Route::view('/', 'auth.form');
+Route::view('/dashboard', 'dashboard');
 
-Route::view("/login","auth.form");
+// Route::resources([
+//     'category' => CategoryController::class,
+//     'mails' => MailController::class,
+//     'newsletter'=> NewsletterController::class,
+// ]);
 
-Route::view("/","dashboard");
 
-Route::get('/category', [CategoryController::class, 'index']);
+Route::resource('category', CategoryController::class)->only([
+    'index', 'store', 'update', 'destroy'
+]);
+Route::resource('newsletter', NewsletterController::class)->only([
+    'index', 'store', 'update', 'destroy'
+]);
 
