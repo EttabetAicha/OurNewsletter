@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -18,12 +19,25 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::view("/login","auth.form");
 
 Route::view("/","auth.form");
-Route::view("/dashboard","dashboadrd");
+Route::view("/dashboard","dashboard");
+
+
+Route::controller(MailController::class)->group(function () {
+    Route::get('/emails', 'index');
+    Route::get('/deleteEmail/{id}', 'deleteEmail');
+    Route::get('/deleteAll', 'deleteAll');
+    Route::get('/Export', 'export');
+    
+    Route::post('/AddEmail', 'AddEmail');
+    Route::post('/EditEmail', 'EditEmail');
+    Route::post('/import', 'import');
+});
+
 
 Route::get('/category', function () {
     return view('category');
