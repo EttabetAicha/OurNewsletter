@@ -22,7 +22,7 @@
                             <h5 class="card-title">{{ $newsletter->title }}</h5>
                             <p class="card-text">{!! $newsletter->content !!}</p>
                             <p><b>Categories:</b>
-                                @foreach($newsletter->categories as $category)
+                                @foreach ($newsletter->categories as $category)
                                     ,{{ $category->name }}
                                 @endforeach
                             </p>
@@ -107,7 +107,8 @@
                                                 <label for="categories">Categories</label>
                                                 <select class="form-control" id="categories" name="categories[]" multiple>
                                                     @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}" {{ in_array($category->id, $newsletter->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                        <option value="{{ $category->id }}"
+                                                            {{ in_array($category->id, $newsletter->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
                                                             {{ $category->name }}
                                                         </option>
                                                     @endforeach
@@ -129,8 +130,8 @@
     </div>
 
     <!-- Add Newsletter Modal -->
-    <div class="modal fade" id="addNewsletterModal" tabindex="-1" role="dialog" aria-labelledby="addNewsletterModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addNewsletterModal" tabindex="-1" role="dialog"
+        aria-labelledby="addNewsletterModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -208,5 +209,9 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
 @endsection

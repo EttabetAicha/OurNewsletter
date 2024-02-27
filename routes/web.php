@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\NewsletterController;
 
 
@@ -40,3 +40,13 @@ Route::resource('newsletter', NewsletterController::class)->only([
     'index', 'store', 'update', 'destroy'
 ]);
 
+Route::controller(MailController::class)->group(function () {
+    Route::get('/emails', 'index');
+    Route::get('/deleteEmail/{id}', 'deleteEmail');
+    Route::get('/deleteAll', 'deleteAll');
+    Route::get('/Export', 'export');
+
+    Route::post('/AddEmail', 'AddEmail');
+    Route::post('/EditEmail', 'EditEmail');
+    Route::post('/import', 'import');
+});
