@@ -79,10 +79,16 @@ class MailController extends Controller
 
 
         $file = $request->file('file');
+        
+        if(!empty($file)){
 
-         Excel::import(new MailsImport, $file);
+            Excel::import(new MailsImport, $file);
+    
+           return redirect('emails')->with('msg', 'Data imported successfully!');
+        }
 
-        return redirect('emails')->with('msg', 'Data imported successfully!');
+        else return redirect('emails')->with('delmsg', 'File is empty!');
+
     }
 
     public function export()

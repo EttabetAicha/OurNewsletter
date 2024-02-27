@@ -355,7 +355,7 @@
             @csrf
             <div class="mb-3">
                 <label for="exampleTextInput" class="form-label">Mails</label>
-                <input type="file" class="form-control" name="file" id="exampleTextInput" placeholder="Excel...">
+                <input type="file" class="form-control" name="file" id="exampleTextInput" placeholder="Excel..." required>
             </div>
         </div>
         <div class="modal-footer">

@@ -12,7 +12,7 @@ class MailExport implements FromCollection
     */
     public function collection()
     {   
-        return Mail::all()->select('id' , 'email');
+        return Mail::all()->select('email');
     }
     
 
