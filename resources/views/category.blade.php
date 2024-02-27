@@ -1,3 +1,4 @@
+@dd($categories);
 <!doctype html>
 <html lang="en">
 
@@ -186,11 +187,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              
+            <tr>
+              <?php foreach($categories as $category){ ?>
                 <td>
                   <div class="d-flex align-items-center">
                     <div class="ms-3">
-                      <p class="text-muted mb-0">Cetegory 1</p>
+                      <p class="text-muted mb-0"> <?php echo $categories ?></p>
                     </div>
                   </div>
                 </td>
@@ -204,6 +207,7 @@
                   <button type="button" class="btn btn-link btn-sm btn-rounded text-danger">Delete</button>
                   <button type="button" class="btn btn-link btn-sm btn-rounded">Edit</button>
                 </td>
+              <?php } ?>
               </tr>
             </tbody>
           </table>

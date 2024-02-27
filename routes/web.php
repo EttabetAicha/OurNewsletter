@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,5 @@ Route::view("/login","auth.form");
 
 Route::view("/","dashboard");
 
-Route::get('/category', function () {
-    return view('category');
-});
+Route::get('/category', [CategoryController::class, 'index']);
 
