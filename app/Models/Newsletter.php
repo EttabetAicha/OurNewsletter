@@ -24,4 +24,5 @@ class Newsletter extends Model
     {
         return $this->belongsToMany(Mail::class, 'newsletter_mail');
     }
+
 }

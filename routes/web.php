@@ -39,4 +39,4 @@ Route::resource('category', CategoryController::class)->only([
 Route::resource('newsletter', NewsletterController::class)->only([
     'index', 'store', 'update', 'destroy'
 ]);
-
+Route::get('search',[NewsletterController::class, 'search'])->name('newsletter.search');

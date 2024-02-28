@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Newsletter;
 use App\Models\User;
 use Illuminate\Http\Request;
+use PDO;
 
 class NewsletterController extends Controller
 {
@@ -88,4 +89,14 @@ class NewsletterController extends Controller
         return redirect('newsletter')
             ->with('success', 'Newsletter deleted successfully.');
     }
+
+    public function search(Request $request){
+        $search_text = $request->input('query');
+        $newsletters = Newsletter::where('title', 'LIKE', '%'.$search_text.'%')->get();
+        $users = User::all(); 
+        return view('search', compact('newsletters', 'users'));
+    }
+    
+   
 }
+

@@ -1,7 +1,8 @@
 @extends('layout')
 
 @section('content')
-    <div class="container">
+    
+<div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -13,7 +14,7 @@
                             Add Newsletter
                         </button>
                     </div>
-                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('newsletter.search') }}">
+                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ url('/search') }}">
                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -114,76 +115,4 @@
         </div>
     </div>
 
-    <!-- Add Newsletter Modal -->
-    <div class="modal fade" id="addNewsletterModal" tabindex="-1" role="dialog" aria-labelledby="addNewsletterModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addNewsletterModalLabel">Add Newsletter</h5>
-
-                </div>
-                <form action="{{ url('newsletter') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="newsletterImage">Image</label>
-                            <input type="file" class="form-control-file" id="images" name="images">
-                        </div>
-                        <div class="form-group">
-                            <label for="newsletterTitle">Title</label>
-                            <input type="text" class="form-control" id="newsletterTitle" name="title"
-                                placeholder="Enter title">
-                        </div>
-                        <div class="form-group">
-                            <label for="editor">Content</label>
-                            <!-- CKEditor WYSIWYG Editor -->
-                            <textarea name="content" id="editorAddNewsletter"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="userId">User</label>
-                            <select class="form-control" id="userId" name="user_id">
-                                <!-- Populate options with user IDs -->
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
-
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#editorAddNewsletter'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @endsection
