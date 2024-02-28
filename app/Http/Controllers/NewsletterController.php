@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Newsletter;
 use App\Models\User;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use PDO;
+=======
+use App\Jobs\SendMailJob;
+>>>>>>> 2fe96e24ed7f339af334ac9a487fbf03774e4321
 
 class NewsletterController extends Controller
 {
@@ -15,10 +20,14 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        //
-        $users = User::all();
         $newsletters = Newsletter::all();
-        return view('news', compact('newsletters', 'users'));
+        $users = User::all();
+        $categories = Category::all(); // Assuming you have a Category model
+        return view('news', [
+            'newsletters' => $newsletters,
+            'users' => $users,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -30,25 +39,31 @@ class NewsletterController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'user_id' => 'required|exists:users,id',
-            'images' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the image validation rules as needed
+            'images' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'categories' => 'array',
         ]);
 
+        // Handle image upload
+        $imageName = null;
         if ($request->hasFile('images')) {
             $imageName = $request->file('images')->getClientOriginalName();
             $request->file('images')->move(public_path('assets/images'), $imageName);
-            $input['images'] =  $imageName;
         }
 
-        Newsletter::create([
+        $newsletter = Newsletter::create([
             'title' => $request->title,
             'content' => $request->content,
             'user_id' => $request->user_id,
             'images' => $imageName,
         ]);
 
-        return redirect('newsletter')
-            ->with('success', 'Newsletter created successfully.');
+        if ($request->has('categories')) {
+            $newsletter->categories()->attach($request->categories);
+        }
+
+        return redirect('newsletter')->with('success', 'Newsletter created successfully.');
     }
+
 
     public function update(Request $request, Newsletter $newsletter)
     {

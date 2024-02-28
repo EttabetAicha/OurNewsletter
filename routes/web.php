@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\NewsletterController;
 
 
@@ -39,4 +39,21 @@ Route::resource('category', CategoryController::class)->only([
 Route::resource('newsletter', NewsletterController::class)->only([
     'index', 'store', 'update', 'destroy'
 ]);
+<<<<<<< HEAD
 Route::get('search',[NewsletterController::class, 'search'])->name('newsletter.search');
+=======
+
+Route::controller(MailController::class)->group(function () {
+    Route::get('/emails', 'index');
+    Route::get('/deleteEmail/{id}', 'deleteEmail');
+    Route::get('/deleteAll', 'deleteAll');
+    Route::get('/Export', 'export');
+
+    Route::post('/AddEmail', 'AddEmail');
+    Route::post('/EditEmail', 'EditEmail');
+    Route::post('/import', 'import');
+});
+
+Route::post('/send_emails', [App\Http\Controllers\SendMailController::class, 'send_emails'])->name('send_emails');
+
+>>>>>>> 2fe96e24ed7f339af334ac9a487fbf03774e4321

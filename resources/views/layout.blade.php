@@ -8,7 +8,18 @@
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <!-- Option 1: Include in HTML -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <style>
+        #header2 {
+            width: 100%;
+
+        }
+
+        #header2 button {
+            padding: 10px 20px;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -35,7 +46,7 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{url('/dashboard')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ url('/dashboard') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
@@ -47,7 +58,7 @@
                             <span class="hide-menu">Services</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{url('/emails')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ url('/emails') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-article"></i>
                                 </span>
@@ -55,7 +66,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{url('/newsletter')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ url('/newsletter') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
@@ -63,7 +74,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{url('/category')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ url('/category') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-cards"></i>
                                 </span>
@@ -76,7 +87,8 @@
                             <span class="hide-menu">AUTH</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <span>
                                     <i class="ti ti-login"></i>
                                 </span>
@@ -163,5 +175,4 @@
             </header>
 
 
-                @yield('content')
-
+            @yield('content')
