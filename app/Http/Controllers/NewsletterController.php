@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Newsletter;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Jobs\SendMailJob;
 
 class NewsletterController extends Controller
 {

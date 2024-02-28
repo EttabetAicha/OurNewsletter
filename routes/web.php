@@ -50,3 +50,6 @@ Route::controller(MailController::class)->group(function () {
     Route::post('/EditEmail', 'EditEmail');
     Route::post('/import', 'import');
 });
+
+Route::post('/send_emails', [App\Http\Controllers\SendMailController::class, 'send_emails'])->name('send_emails');
+
