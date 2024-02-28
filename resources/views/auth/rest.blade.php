@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,15 +12,18 @@
         .form-gap {
             padding-top: 10%;
         }
+
         body {
             background-image: url('../assets/Adidas.jpg');
         }
+
         .alert {
             margin-top: 10px;
         }
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
+
 <body>
     <div class="form-gap"></div>
     <div class="container">
@@ -32,7 +36,7 @@
                             <h2 class="text-center">Forgot Password?</h2>
                             <p>You can reset your password here.</p>
                             <div class="panel-body">
-                                <form id="reset-password-form" role="form" autocomplete="off" class="form" method="post" action="{{ url('/password/email') }}">
+                                <form id="reset-password-form" role="form" autocomplete="off" class="form" method="POST" action="{{ route('forgetPasswordPost') }}">
                                     @csrf
                                     <div class="form-group">
                                         <div class="input-group">
@@ -42,7 +46,7 @@
                                         <div id="email-error" class="error" style="display: none;">Invalid email address</div>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" name="recover-submit" class="btn btn-lg btn-success btn-block">Reset Password</button>
+                                        <button type="submit" name="submit" class="btn btn-lg btn-success btn-block">Reset Password</button>
                                     </div>
                                     <div class="alert alert-success" id="success-message" style="display: none;" role="alert">
                                         Password reset link sent to your email.
@@ -82,4 +86,5 @@
         });
     </script> --}}
 </body>
+
 </html>

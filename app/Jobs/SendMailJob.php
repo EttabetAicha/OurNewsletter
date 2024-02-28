@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+use App\Models\Mail as Mails;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -16,7 +16,7 @@ class SendMailJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $details;
-    public $timeout = 200;
+   
 
     /**
      * Create a new job instance.
@@ -31,15 +31,14 @@ class SendMailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $users = User::all();
+        $mails = Mails::all();
         $input['title'] = $this->details['title'];
         $input['content'] = $this->details['content'];
 
-        foreach ($users as $user) {
-            $input['name'] = $user->name;
-            $input['email'] = $user->email;
-            Mail::send('mail.test_mail', ['input' => $input], function ($message) use ($input) {
-                $message->to($input['email'], $input['name'])
+        foreach ($mails as $mail) {
+            $input['email'] = $mail->email;
+            Mail::mailer('smtp')->send('mail.test_mail', ['input' => $input], function ($message) use ($input) {
+                $message->to($input['email'])
                     ->subject($input['title']);
             });
         }

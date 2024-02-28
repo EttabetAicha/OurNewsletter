@@ -53,3 +53,14 @@ Route::controller(MailController::class)->group(function () {
 
 Route::post('/send_emails', [App\Http\Controllers\SendMailController::class, 'send_emails'])->name('send_emails');
 
+
+
+Route::get('/forget-password', [App\Http\Controllers\ForgetPasswordManger::class, 'forgetPassword'])->name('forgetPassword');
+
+Route::post('/forget-password', [App\Http\Controllers\ForgetPasswordManger::class, 'forgetPasswordPost'])->name('forgetPasswordPost');
+
+Route::get('/reset-password{token}', [App\Http\Controllers\ForgetPasswordManger::class, 'resetPassword'])->name("resetPassword");
+
+Route::post('/reset-password', [App\Http\Controllers\ForgetPasswordManger::class, 'resetPasswordPost'])->name("resetPasswordPost");
+
+

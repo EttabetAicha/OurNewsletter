@@ -1,4 +1,4 @@
-Hey {{$input['name']}}; <br>
+Hey <br>
 
 
 Your email is {{$input['email']}}; <br>
