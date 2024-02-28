@@ -6,31 +6,34 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\Permission;
 
-class CheckPermission
+class HasPermission
 {
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$permissions): Response
     {
-        $uri = $request->route()->uri;
         $role_id = session('user_role') ?? '';
 
         if ($role_id) {
-            $allowedRoutes = Permission::where('role_id', $role_id)->get();
+            $allowedRoutes = $this->getAllowedRoutesForRole($role_id);
 
-            foreach ($allowedRoutes as $route) {
-                $allowedUri = $route->route->name;
-
-                if (count(explode('/', $uri)) > 2) {
-                    if (strstr($uri, $allowedUri))  return $next($request);
-                } else {
-                    if ($uri === $allowedUri) return $next($request);
-                }
+            $currentRoute = $request->route()->getName();
+            if (in_array($currentRoute, $allowedRoutes)) {
+                return $next($request);
             }
 
             return abort(401);
         } else {
             return redirect('/login');
         }
+    }
+
+    private function getAllowedRoutesForRole($role_id)
+    {
+        $roles = [
+            'admin' => ['admin.dashboard', 'admin.users', 'admin.settings'],
+            'editor' => ['editor.dashboard', 'editor.articles', 'editor.settings'],
+        ];
+
+        return $roles[$role_id] ?? [];
     }
 }
