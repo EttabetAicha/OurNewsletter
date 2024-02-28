@@ -12,16 +12,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('categories.create');
+        return view('category', compact('categories'));
     }
 
     /**
@@ -31,29 +24,12 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:categories|max:255',
-           
         ]);
 
         Category::create($request->all());
 
-        return redirect()->route('categories.index')
-                         ->with('success', 'Category created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        return view('categories.show', compact('category'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        return view('categories.edit', compact('category'));
+        return redirect()->route('category.index')
+            ->with('success', 'Category created successfully.');
     }
 
     /**
@@ -62,14 +38,14 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|unique:categories|max:255',
+            'name' => 'required|unique:categories,name,' . $category->id . '|max:255',
             // Add more validation rules if needed
         ]);
 
         $category->update($request->all());
 
-        return redirect()->route('categories.index')
-                         ->with('success', 'Category updated successfully');
+        return redirect()->route('category.index')
+            ->with('success', 'Category updated successfully');
     }
 
     /**
@@ -79,7 +55,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect()->route('categories.index')
-                         ->with('success', 'Category deleted successfully');
+        return redirect()->route('category.index')
+            ->with('success', 'Category deleted successfully');
     }
 }

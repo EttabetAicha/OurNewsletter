@@ -1,227 +1,209 @@
-<!doctype html>
-<html lang="en">
+@extends('layout')
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="../assets/css/styles.min.css" />
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Newsletters</div>
 
-  <style>
-    #header2{
-      width: 100%;
-      
-    }
-    #header2 button{
-        padding: 10px  20px;
-        
-    }
-
-  </style>
-</head>
-
-<body>
-  <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-    <!-- Sidebar Start -->
-    <aside class="left-sidebar">
-      <!-- Sidebar scroll-->
-      <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
-          </a>
-          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-            <i class="ti ti-x fs-8"></i>
-          </div>
-        </div>
-        <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-          <ul id="sidebarnav">
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Home</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Services</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-article"></i>
-                </span>
-                <span class="hide-menu">Emails</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-alert-circle"></i>
-                </span>
-                <span class="hide-menu">News Letters</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-cards"></i>
-                </span>
-                <span class="hide-menu">Categories</span>
-              </a>
-            </li>
-            
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">AUTH</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-login"></i>
-                </span>
-                <span class="hide-menu">Logout</span>
-              </a>
-            </li>
-            {{-- <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user-plus"></i>
-                </span>
-                <span class="hide-menu">Register</span>
-              </a>
-            </li> --}}
-      
-            
-           
-          </ul>
-      
-        </nav>
-        <!-- End Sidebar navigation -->
-      </div>
-      <!-- End Sidebar scroll-->
-    </aside>  
-    <!--  Sidebar End -->
-    <!--  Main wrapper -->
-    <div class="body-wrapper">
-      <!--  Header Start -->
-      <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
-              </a>
-            </li>
-          </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a>
-              <li class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
-                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                  </div>
+                <div class="card-body">
+                    <!-- Button to trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewsletterModal">
+                        Add Newsletter
+                    </button>
                 </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-      <!--  Header End -->
-      <div class="container-fluid">
-        <div class="card">
+            </div>
+            @foreach ($newsletters as $newsletter)
+            <div class="card mb-3">
+                <img src="{{ asset('assets/images/' . $newsletter->images) }}" class="card-img-top w-25" alt="Newsletter Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $newsletter->title }}</h5>
+                    <p class="card-text">{!! $newsletter->content !!}</p>
+                    <p><b>Categories:</b>
+                        @foreach ($newsletter->categories as $category)
+                        ,{{ $category->name }}
+                        @endforeach
+                    </p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editNewsletterModal{{ $newsletter->id }}">Edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $newsletter->id }}">Delete</button>
+                    <form action="{{ route('send_emails', $newsletter->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary mt-2">Send Newsletter Email</button>
+                    </form>
+                
+    
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="confirmDeleteModal{{ $newsletter->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel{{ $newsletter->id }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteModalLabel{{ $newsletter->id }}">
+                                        Confirm Delete</h5>
 
-          <div class="d-flex justify-content-between align-items-center mb-3" id="header2">
-            <div>
-              <button type="button" class="btn btn-primary btn-sm me-2">Add</button>
-         
-            </div>
-            <div>
-              <!-- You can add any additional controls or information here if needed -->
-            </div>
-          </div>
-          
-          <table class="table align-middle mb-0 bg-white">
-            <thead class="bg-light">
-              <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th></th>
-                <th></th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div class="ms-3">
-                      <p class="text-muted mb-0">News 1</p>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this newsletter?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <!-- Form to submit delete request -->
+                                    <form action="{{ route('newsletter.destroy', $newsletter->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="text-muted mb-0">Khribiqa zribiqa Khribiqa zribiqa Khribiqa zribiqa...</p>
-                </td>
-                <td>
-                  Sport
-                </td>
-                <td></td>
-                <td></td>
-                <td>
-                  <button type="button" class="btn btn-link btn-sm btn-rounded text-danger">Delete</button>
-                  <button type="button" class="btn btn-link btn-sm btn-rounded">Edit</button>
-                  <button type="button" class="btn btn-link btn-sm btn-rounded">Send To All</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          
+                </div>
+                <!-- Edit Newsletter Modal -->
+                <div class="modal fade" id="editNewsletterModal{{ $newsletter->id }}" tabindex="-1" role="dialog" aria-labelledby="editNewsletterModalLabel{{ $newsletter->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editNewsletterModalLabel{{ $newsletter->id }}">Edit
+                                    Newsletter</h5>
 
-          
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('newsletter.update', $newsletter->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <!-- Your form fields go here -->
+                                    <div class="form-group">
+                                        <label for="image">Image</label>
+                                        <input type="file" class="form-control-file" id="images" name="images">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="{{ $newsletter->title }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content">Content</label>
+                                        <textarea class="form-control" id="editor" name="content" rows="6">{{ $newsletter->content }}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="user_id">User</label>
+                                        <select class="form-control" id="user_id" name="user_id">
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" {{ $newsletter->user_id == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="categories">Categories</label>
+                                        <select class="form-control" id="categories" name="categories[]" multiple>
+                                            @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" {{ in_array($category->id, $newsletter->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-</body>
 
-</html>
+    <!-- Add Newsletter Modal -->
+    <div class="modal fade" id="addNewsletterModal" tabindex="-1" role="dialog" aria-labelledby="addNewsletterModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNewsletterModalLabel">Add Newsletter</h5>
+
+                </div>
+                <form action="{{ url('newsletter') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="newsletterImage">Image</label>
+                            <input type="file" class="form-control-file" id="images" name="images">
+                        </div>
+                        <div class="form-group">
+                            <label for="newsletterTitle">Title</label>
+                            <input type="text" class="form-control" id="newsletterTitle" name="title" placeholder="Enter title">
+                        </div>
+                        <div class="form-group">
+                            <label for="editor">Content</label>
+                            <!-- CKEditor WYSIWYG Editor -->
+                            <textarea name="content" id="editorAddNewsletter"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="userId">User</label>
+                            <select class="form-control" id="userId" name="user_id">
+                                <!-- Populate options with user IDs -->
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="categories">Categories</label>
+                            <select class="form-control" id="categories" name="categories[]" multiple>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#editorAddNewsletter'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+
+
+
+
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @endsection
