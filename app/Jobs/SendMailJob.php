@@ -16,6 +16,7 @@ class SendMailJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $details;
+    public $timeOut = 200;
    
 
     /**

@@ -11,6 +11,10 @@ class SendMailController extends Controller
 
     public function send_emails(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
 
         $newsletters = Newsletter::all(); // Adjust this query as per your requirements
 
