@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 
 class AuthController extends Controller
 {
@@ -23,30 +26,28 @@ class AuthController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-           
+
         ]);
         return redirect('/login')->with('success', 'Registration successful. Please log in.');
     }
     public function login(Request $request)
     {
-        $validateData = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-        $user = User::where('email', $validateData['email'])->first();
-        if ($user) {
-            if (password_verify($validateData['password'], $user->password)) {
-                session(['username' => $user->name]);
-                session(['email' => $user->email]);
-                session(['user_id' => $user->id]);
-                    
-                return redirect('/dashboard');
-                
-            } else {
-                return redirect('/login')->withErrors(['password' => 'Invalid password']);
-            }
+        $credentials = $request->only('email', 'password');
+
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return redirect('/login')->withErrors(['email' => 'User not found']);
+
+        return response()->json(compact('token'));
+    }
+    public function refreshToken(Request $request)
+    {
+        try {
+            $token = JWTAuth::parseToken()->refresh();
+            return response()->json(compact('token'));
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Token could not be refreshed'], 401);
+        }
     }
     public function logout(Request $request)
     {
