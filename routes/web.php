@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsletterController;
+use App\Events\SendMailsEvent;
 
 
 /*
@@ -25,6 +26,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::view('/login', 'auth.form');
 Route::view('/', 'auth.form');
 Route::view('/dashboard', 'dashboard');
+
+Route::get('/event', function () {
+    event(new SendMailsEvent());
+});
 
 // Route::resources([
 //     'category' => CategoryController::class,
@@ -62,5 +67,3 @@ Route::post('/forget-password', [App\Http\Controllers\ForgetPasswordManger::clas
 Route::get('/reset-password{token}', [App\Http\Controllers\ForgetPasswordManger::class, 'resetPassword'])->name("resetPassword");
 
 Route::post('/reset-password', [App\Http\Controllers\ForgetPasswordManger::class, 'resetPasswordPost'])->name("resetPasswordPost");
-
-

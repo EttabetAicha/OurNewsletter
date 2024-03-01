@@ -6,7 +6,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Newsletters</div>
-
+                <div class="Notification">
+                    
+                </div>
                 <div class="card-body">
                     <!-- Button to trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewsletterModal">
