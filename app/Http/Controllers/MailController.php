@@ -95,4 +95,6 @@ class MailController extends Controller
     {
         return Excel::download(new MailExport, 'Mails.xlsx');
     }
+
+
 }

@@ -12,8 +12,6 @@ class MailExport implements FromCollection
     */
     public function collection()
     {   
-        return Mail::all()->select('email');
+        return Mail::orderBy('id', 'DESC')->select('email')->get();
     }
-    
-
 }
