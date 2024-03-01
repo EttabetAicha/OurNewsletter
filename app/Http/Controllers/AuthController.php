@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -19,39 +20,53 @@ class AuthController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|min:3',
         ]);
+
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
+
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-
         ]);
-        return redirect('/login')->with('success', 'Registration successful. Please log in.');
+
+        return redirect('/');
     }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        if (!$token = JWTAuth::attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        // Attempt to authenticate the user
+        if (Auth::attempt($credentials)) {
+            // Authentication successful, generate JWT token
+            $token = JWTAuth::fromUser(Auth::user());
+            Session::put('token', $token);
+            // Return the token or redirect to dashboard
+            return redirect('/dashboard');
+
         }
 
-        return response()->json(compact('token'));
+        // Authentication failed, return 401 Unauthorized
+        return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
     }
+
     public function refreshToken(Request $request)
     {
         try {
             $token = JWTAuth::parseToken()->refresh();
             return response()->json(compact('token'));
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Token could not be refreshed'], 401);
+            return response()->json(['error' => 'Token could not be refreshed'], Response::HTTP_UNAUTHORIZED);
         }
     }
+
     public function logout(Request $request)
     {
-        Session::forget('user');
-        return redirect('/login');
+        // Assuming you are using JWTAuth for authentication, you can simply invalidate the token.
+        JWTAuth::invalidate(JWTAuth::getToken());
+
+        return response()->json(['message' => 'Logged out successfully']);
     }
 }
