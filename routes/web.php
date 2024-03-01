@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -20,20 +21,19 @@ Route::resource('category', CategoryController::class)->only([
     'index', 'store', 'update', 'destroy'
 ]);
 
-Route::middleware('jwt.auth')->resource('newsletter', NewsletterController::class)->only([
+Route::resource('newsletter', NewsletterController::class)->only([
     'index', 'store', 'update', 'destroy'
 ]);
 
-Route::middleware('jwt.auth')->group(function () {
-    Route::get('/emails', [MailController::class, 'index']);
-    Route::get('/deleteEmail/{id}', [MailController::class, 'deleteEmail']);
-    Route::get('/deleteAll', [MailController::class, 'deleteAll']);
-    Route::get('/Export', [MailController::class, 'export']);
 
-    Route::post('/AddEmail', [MailController::class, 'AddEmail']);
-    Route::post('/EditEmail', [MailController::class, 'EditEmail']);
-    Route::post('/import', [MailController::class, 'import']);
-});
+Route::get('/emails', [MailController::class, 'index']);
+Route::get('/deleteEmail/{id}', [MailController::class, 'deleteEmail']);
+Route::get('/deleteAll', [MailController::class, 'deleteAll']);
+Route::get('/Export', [MailController::class, 'export']);
+
+Route::post('/AddEmail', [MailController::class, 'AddEmail']);
+Route::post('/EditEmail', [MailController::class, 'EditEmail']);
+Route::post('/import', [MailController::class, 'import']);
 
 Route::post('/send_emails', [App\Http\Controllers\SendMailController::class, 'send_emails'])->name('send_emails');
 
