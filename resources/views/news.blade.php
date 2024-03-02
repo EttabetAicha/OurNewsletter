@@ -63,11 +63,13 @@
                                 data-target="#editNewsletterModal{{ $newsletter->id }}">Edit</button>
                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#confirmDeleteModal{{ $newsletter->id }}">Delete</button>
-                            <form action="{{ route('send_emails', $newsletter->id) }}" method="POST">
-                                @csrf
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-warning text-black mt-2">Send Newsletter Email</button>
-                                </div>                            </form>
+                                <form action="{{ route('send_emails') }}" method="POST">
+                                    @csrf
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-warning text-black mt-2">Send Newsletter Email</button>
+                                    </div>
+                                </form>
+
                         </div>
                     </div>
                 @endforeach
@@ -197,10 +199,10 @@
                         </div>
                         <div class="form-group">
                             <label for="userId">User</label>
-                            <select class="form-control" id="userId" name="user_id">
+                            <select class="form-control" id="userId" name="user_id" disabled >
                                 <!-- Populate options with user IDs -->
                                 @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}" >{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         </div>

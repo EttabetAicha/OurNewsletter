@@ -29,10 +29,8 @@ class JwtAuthVal
             if (Session::has('token')) {
                 $token = new Token(Session::get('token'));
 
-                // Decode the token to verify its validity
                 $decodedToken = JWTAuth::decode($token);
                 // dd($decodedToken);
-                // If decoding is successful, continue with the request
                 // $user = JWTAuth::toUser($token);
                 if ($token) {
                     // dd($user);
