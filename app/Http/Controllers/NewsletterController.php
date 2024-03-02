@@ -18,7 +18,7 @@ class NewsletterController extends Controller
     {
         $newsletters = Newsletter::all();
         $users = User::all();
-        $categories = Category::all(); // Assuming you have a Category model
+        $categories = Category::all(); 
         return view('news', [
             'newsletters' => $newsletters,
             'users' => $users,
