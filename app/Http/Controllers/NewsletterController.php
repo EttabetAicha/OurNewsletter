@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Newsletter;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Jobs\SendMailJob;
 
 class NewsletterController extends Controller
 {
@@ -17,7 +18,7 @@ class NewsletterController extends Controller
     {
         $newsletters = Newsletter::all();
         $users = User::all();
-        $categories = Category::all(); // Assuming you have a Category model
+        $categories = Category::all(); 
         return view('news', [
             'newsletters' => $newsletters,
             'users' => $users,

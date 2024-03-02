@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -16,41 +20,66 @@ class AuthController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|min:3',
         ]);
+
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
+
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-           
         ]);
-        return redirect('/login')->with('success', 'Registration successful. Please log in.');
+
+        return redirect('/')->with('success', 'Registration successful. Please log in.');
     }
+
     public function login(Request $request)
     {
-        $validateData = $request->validate([
+        $credentials = $request->only('email', 'password');
+
+        $validator = Validator::make($credentials, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        $user = User::where('email', $validateData['email'])->first();
-        if ($user) {
-            if (password_verify($validateData['password'], $user->password)) {
-                session(['username' => $user->name]);
-                session(['email' => $user->email]);
-                session(['user_id' => $user->id]);
-                    
+
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        if (Auth::attempt($credentials)) {
+            $token = JWTAuth::fromUser(Auth::user());
+            // dd($token);
+            if ($token) {
+                Session::put('token', $token);
                 return redirect('/dashboard');
-                
             } else {
-                return redirect('/login')->withErrors(['password' => 'Invalid password']);
+                return response()->json(['error' => 'Failed to create token'], Response::HTTP_BAD_REQUEST);
             }
         }
-        return redirect('/login')->withErrors(['email' => 'User not found']);
+
+        return redirect('/')
+            ->withErrors(['error' => 'Invalid credentials'])
+            ->withInput();
     }
+
+    public function refreshToken(Request $request)
+    {
+        try {
+            $token = JWTAuth::parseToken()->refresh();
+            return response()->json(compact('token'));
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Token could not be refreshed'], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+
     public function logout(Request $request)
     {
-        Session::forget('user');
-        return redirect('/login');
+        Auth::logout();
+        Session::forget('token');
+        return redirect('/')->with('success', 'Logged out successfully');
     }
 }

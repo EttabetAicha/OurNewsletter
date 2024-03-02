@@ -32,13 +32,27 @@
                             <h2 class="text-center">change your Password?</h2>
                             <p>You can change  your password here.</p>
                             <div class="panel-body">
-                                <form id="reset-password-form" role="form" autocomplete="off" class="form" method="post" action="{{ url('/password/reset') }}">
+                                <form id="reset-password-form" role="form" autocomplete="off" class="form" method="POST" action="{{ route('resetPasswordPost') }}">
                                     @csrf
-                                    <input type="hidden" value="{{$token->token}}" name="token" >
+                                    <input type="text" hidden value="{{$token}}" name="token" >
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                            <input id="email" name="email" placeholder="Email Address" class="form-control  " type="email" aria-describedby="email-error">
+                                        </div>
+                                        <div id="email-error" class="error" style="display: none;">Invalid email address</div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
                                             <input id="password" name="password" placeholder="new password" class="form-control" type="text" aria-describedby="password-error">
+                                        </div>
+                                        <div id="email-error" class="error" style="display: none;">Invalid password address</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                            <input id="password" name="password_confirmation" placeholder="confirm new password" class="form-control" type="text" aria-describedby="password-error">
                                         </div>
                                         <div id="email-error" class="error" style="display: none;">Invalid password address</div>
                                     </div>

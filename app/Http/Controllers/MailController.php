@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\MailExport;
-use App\Models\Mail;
+use App\Models\Mail as Mails;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MailsImport;
@@ -15,7 +15,7 @@ class MailController extends Controller
      */
     protected $mail;
     public function __construct(){
-        $this->mail = new Mail();
+        $this->mail = new Mails();
     }
     public function index()
     {
