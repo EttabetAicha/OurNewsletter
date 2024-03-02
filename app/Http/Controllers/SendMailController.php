@@ -16,23 +16,18 @@ class SendMailController extends Controller
             'content' => 'required',
         ]);
 
-        $newsletters = Newsletter::all(); // Adjust this query as per your requirements
+        $newsletters = Newsletter::all();
 
-        // Loop through each newsletter to send emails
         foreach ($newsletters as $newsletter) {
-            // Prepare email details
             $details = [
                 'title' => $newsletter->title,
                 'content' => $newsletter->content,
-         
-                // Add more data as needed for the email template
             ];
 
-            // Dispatch job to send email
             $job = new SendMailJob($details);
             dispatch($job);
         }
-        
+
         return back()->with('status', 'Mails sent successefly');
     }
 }

@@ -9,15 +9,14 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Mail as Mails;
 use Illuminate\Support\Facades\Mail;
-
+use Symfony\Component\Mailer\Exception\UnexpectedResponseException;
 
 class SendMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $details;
-    public $timeOut = 200;
-   
+    public $timeout = 200;
 
     /**
      * Create a new job instance.

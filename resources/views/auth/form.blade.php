@@ -53,10 +53,14 @@
                 @error('password')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <a href="{{route('forgetPassword')}}">Forgot your password?</a>
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
+                <a href="{{ route('forgetPassword') }}">Forgot your password?</a>
                 <button type="submit">Sign In</button>
             </form>
         </div>
+
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">

@@ -31,25 +31,38 @@ class AuthController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Registration successful. Please log in.');
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        // Attempt to authenticate the user
-        if (Auth::attempt($credentials)) {
-            // Authentication successful, generate JWT token
-            $token = JWTAuth::fromUser(Auth::user());
-            Session::put('token', $token);
-            // Return the token or redirect to dashboard
-            return redirect('/dashboard');
+        $validator = Validator::make($credentials, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        // Authentication failed, return 401 Unauthorized
-        return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+        if (Auth::attempt($credentials)) {
+            $token = JWTAuth::fromUser(Auth::user());
+            // dd($token);
+            if ($token) {
+                Session::put('token', $token);
+                return redirect('/dashboard');
+            } else {
+                return response()->json(['error' => 'Failed to create token'], Response::HTTP_BAD_REQUEST);
+            }
+        }
+
+        return redirect('/')
+            ->withErrors(['error' => 'Invalid credentials'])
+            ->withInput();
     }
 
     public function refreshToken(Request $request)
@@ -62,11 +75,11 @@ class AuthController extends Controller
         }
     }
 
+
     public function logout(Request $request)
     {
-        // Assuming you are using JWTAuth for authentication, you can simply invalidate the token.
-        JWTAuth::invalidate(JWTAuth::getToken());
-
-        return response()->json(['message' => 'Logged out successfully']);
+        Auth::logout();
+        Session::forget('token');
+        return redirect('/')->with('success', 'Logged out successfully');
     }
 }
